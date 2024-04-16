@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/navigation">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/sleep_tracker_fragment">
+
+    <fragment
+        android:id="@+id/sleep_tracker_fragment"
+        android:name="com.example.archdatalayer.sleepTracker.SleepTrackerFragment"
+        android:label="@string/sleep_tracker_fragment"
+        tools:layout="@layout/fragment_sleep_tracker"/>
+
+    <fragment
+        android:id="@+id/sleep_quality_fragment"
+        android:name="com.example.archdatalayer.sleepQuality.SleepQualityFragment"
+        android:label="@string/sleep_quality_fragment"
+        tools:layout="@layout/fragment_sleep_quality" />
 
 </navigation>
