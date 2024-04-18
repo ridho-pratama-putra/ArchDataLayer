@@ -7,12 +7,12 @@ import com.example.archdatalayer.database.SleepDatabaseDao
 import com.example.archdatalayer.sleepTracker.SleepTrackerViewModel
 
 class SleepQualityViewModelFactory(
-    private val dataSource: SleepDatabaseDao,
-    private val application: Application
-): ViewModelProvider.Factory {
+    private val nightId: Long,
+    private val dataSource: SleepDatabaseDao
+) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SleepTrackerViewModel::class.java)) {
-            return SleepTrackerViewModel(dataSource, application) as T
+        if (modelClass.isAssignableFrom(SleepQualityViewModel::class.java)) {
+            return SleepQualityViewModel(nightId, dataSource) as T
         }
         throw IllegalArgumentException("unknown viewmodel class")
     }
