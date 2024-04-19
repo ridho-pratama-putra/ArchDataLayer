@@ -32,7 +32,7 @@ class SleepTrackerFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dataSource = SleepDatabase.getInstance(application).sleepDatabaseDao
-        val viewModelFactory = SleepTrackerViewModelFactory(dataSource)
+        val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(SleepTrackerViewModel::class.java)
 
         binding.lifecycleOwner = viewLifecycleOwner

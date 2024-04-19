@@ -1,5 +1,6 @@
 package com.example.archdatalayer.sleepTracker
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,13 +9,13 @@ import com.example.archdatalayer.database.SleepNight
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class SleepTrackerViewModel(
     val database: SleepDatabaseDao,
+    application: Application
 ): ViewModel() {
 
     private var tonight = MutableLiveData<SleepNight?>()
