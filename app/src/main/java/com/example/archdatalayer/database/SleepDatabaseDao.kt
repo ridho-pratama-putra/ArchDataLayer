@@ -2,6 +2,7 @@ package com.example.archdatalayer.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
@@ -27,4 +28,7 @@ interface SleepDatabaseDao {
 
     @Update
     fun update(night: SleepNight)
+
+    @Query("DELETE FROM daily_sleep_quality_table")
+    fun clearDb()
 }

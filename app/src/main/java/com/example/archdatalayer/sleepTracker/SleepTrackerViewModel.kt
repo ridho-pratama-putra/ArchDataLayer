@@ -37,8 +37,6 @@ class SleepTrackerViewModel(
     fun onButtonStartPressed() {
         Timber.i("onButtonStartPressed")
         uiScope.launch {
-            delay(5000)
-
             Timber.i("onstarttracking launch")
             val newNight = SleepNight()
             insert(newNight)
@@ -71,6 +69,17 @@ class SleepTrackerViewModel(
 
     fun onButtonClearPressed() {
         Timber.i("onButtonClearPressed")
+
+        uiScope.launch {
+            cleardb()
+        }
+    }
+
+    private suspend fun cleardb() {
+        withContext(Dispatchers.IO) {
+            database.clearDb()
+        }
+
     }
     override fun onCleared() {
         super.onCleared()
