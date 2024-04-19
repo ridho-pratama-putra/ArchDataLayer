@@ -28,25 +28,28 @@ class SleepTrackerViewModel(
 
     // scope determine what thread the coroutine will run on and its need to know about the job
     // this means coroutine launch in the ui scope will run on main thread
+    // at first using different scope that is io for save to db and main to set value
+    // but later found that it can create branch from ui (main) to thread by using withContext
     private val ioScope = CoroutineScope(Dispatchers.IO + viewModelJob)
     private val mainScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     fun onButtonStartPressed() {
         Timber.i("onButtonStartPressed")
-        ioScope.launch {
+        uiScope.launch {
             delay(5000)
 
             Timber.i("onstarttracking launch")
             val newNight = SleepNight()
-
-            database.save(newNight)
-        }
-
-        // Cannot invoke setValue on a background thread so I use main thread
-        mainScope.launch {
+            insert(newNight)
             tonight.value = getTonightFromDatabase()
         }
+    }
 
+    private suspend fun insert(newNight: SleepNight) {
+        withContext(Dispatchers.IO) {
+            database.save(newNight)
+        }
     }
 
     private suspend fun getTonightFromDatabase(): SleepNight? {
