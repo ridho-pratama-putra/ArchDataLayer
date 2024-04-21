@@ -35,6 +35,8 @@ class SleepNightAdapter: RecyclerView.Adapter<TextItemViewHolder>() {
         val item = data[position]
         if (item.sleepQuality <= 1) {
             holder.textView.setTextColor(Color.RED)
+        } else {
+            holder.textView.setTextColor(Color.BLACK)
         }
         holder.textView.text = item.sleepQuality.toString()
         // Timber.i("onBindViewHolder $this $holder")
