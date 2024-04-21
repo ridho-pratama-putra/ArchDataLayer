@@ -35,6 +35,8 @@ class SleepTrackerViewModel(
     private val mainScope = CoroutineScope(Dispatchers.Main + viewModelJob)
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    val nights = database.getAllNights()
+
     fun onButtonStartPressed() {
         Timber.i("onButtonStartPressed")
         uiScope.launch {
@@ -80,9 +82,9 @@ class SleepTrackerViewModel(
         withContext(Dispatchers.IO) {
             database.clearDb()
         }
-
     }
     override fun onCleared() {
+        Timber.i("onCleared")
         super.onCleared()
     }
 }

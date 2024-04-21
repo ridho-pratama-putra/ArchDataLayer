@@ -51,6 +51,16 @@ class SleepTrackerFragment : Fragment() {
             }
         })
 
+        val adapter = SleepNightAdapter()
+        binding.sleepList.adapter = adapter
+
+        viewModel.nights.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Timber.i("viewModel.nights.observe")
+                adapter.data = it
+            }
+        })
+
         return binding.root
     }
 }
