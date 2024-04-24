@@ -3,15 +3,14 @@ package com.example.archdatalayer.sleepTracker
 import android.content.res.Resources
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.archdatalayer.R
 import com.example.archdatalayer.convertDurationToFormatted
 import com.example.archdatalayer.convertNumericQualityToString
 import com.example.archdatalayer.database.SleepNight
+import com.example.archdatalayer.databinding.ListItemSleepNightBinding
 import timber.log.Timber
 
 /**
@@ -21,24 +20,19 @@ import timber.log.Timber
  * to the RecyclerView such as where on the screen it was last drawn during scrolling.
  * manage the view like which xml layout, match sleep icon, do colouring
  */
-class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val sleepDuration: TextView = itemView.findViewById(R.id.sleep_duration_string)
-    val sleepQuality: TextView = itemView.findViewById(R.id.sleep_quality_string)
-    val sleepIcon: ImageView = itemView.findViewById(R.id.sleep_quality_icon)
-
+class ViewHolder private constructor(private val binding: ListItemSleepNightBinding) : RecyclerView.ViewHolder(binding.root) {
      fun bind(
         item: SleepNight,
         resources: Resources
     ) {
         if (item.sleepQuality <= 1) {
-            sleepDuration.setTextColor(Color.RED)
+            binding.sleepDurationString.setTextColor(Color.RED)
         } else {
-            sleepDuration.setTextColor(Color.BLACK)
+            binding.sleepDurationString.setTextColor(Color.BLACK)
         }
-        sleepQuality.text = convertNumericQualityToString(item.sleepQuality, resources)
-        sleepDuration.text =
-            convertDurationToFormatted(item.startTimeMilli, item.endTimeMilli, resources)
-        sleepIcon.setImageResource(
+        binding.sleepQualityString.text = convertNumericQualityToString(item.sleepQuality, resources)
+        binding.sleepDurationString.text = convertDurationToFormatted(item.startTimeMilli, item.endTimeMilli, resources)
+        binding.sleepQualityIcon.setImageResource(
             when (item.sleepQuality) {
                 0 -> R.drawable.ic_sleep_0
                 1 -> R.drawable.ic_sleep_1
@@ -54,7 +48,7 @@ class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(i
     companion object {
         fun from (parent: ViewGroup): ViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val view = layoutInflater.inflate(R.layout.list_item_sleep_night, parent, false) as View
+            val view = ListItemSleepNightBinding.inflate(layoutInflater, parent, false)
             Timber.i("onCreateViewHolder $this")
             return ViewHolder(view)
         }
