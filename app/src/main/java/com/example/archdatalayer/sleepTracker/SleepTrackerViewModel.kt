@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import com.example.archdatalayer.database.SleepDatabaseDao
 import com.example.archdatalayer.database.SleepNight
 import kotlinx.coroutines.CoroutineScope
@@ -19,6 +21,15 @@ class SleepTrackerViewModel(
 ): ViewModel() {
 
     private var tonight = MutableLiveData<SleepNight?>()
+    /**
+     * If tonight has not been set, then the START button should be visible.
+     */
+    val startButtonVisible = tonight.map { null == it }
+
+    /**
+     * If tonight has been set, then the STOP button should be visible.
+     */
+    val stopButtonVisible = tonight.map{ null != it }
 
     // encapsulate mutable livedata
     private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
@@ -36,6 +47,16 @@ class SleepTrackerViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     val nights = database.getAllNights()
+
+    init {
+        initializeTonight()
+    }
+
+    private fun initializeTonight() {
+        viewModelScope.launch {
+            tonight.value = getTonightFromDatabase()
+        }
+    }
 
     fun onButtonStartPressed() {
         Timber.i("onButtonStartPressed")

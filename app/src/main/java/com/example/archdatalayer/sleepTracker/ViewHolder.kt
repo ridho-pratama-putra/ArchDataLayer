@@ -28,18 +28,17 @@ class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(i
 
      fun bind(
         item: SleepNight,
-        holder: ViewHolder,
         resources: Resources
     ) {
         if (item.sleepQuality <= 1) {
-            holder.sleepDuration.setTextColor(Color.RED)
+            sleepDuration.setTextColor(Color.RED)
         } else {
-            holder.sleepDuration.setTextColor(Color.BLACK)
+            sleepDuration.setTextColor(Color.BLACK)
         }
-        holder.sleepQuality.text = convertNumericQualityToString(item.sleepQuality, resources)
-        holder.sleepDuration.text =
+        sleepQuality.text = convertNumericQualityToString(item.sleepQuality, resources)
+        sleepDuration.text =
             convertDurationToFormatted(item.startTimeMilli, item.endTimeMilli, resources)
-        holder.sleepIcon.setImageResource(
+        sleepIcon.setImageResource(
             when (item.sleepQuality) {
                 0 -> R.drawable.ic_sleep_0
                 1 -> R.drawable.ic_sleep_1
