@@ -34,6 +34,8 @@ class SleepTrackerViewModel(
     // encapsulate mutable livedata
     private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
     val navigateToSleepQuality: LiveData<SleepNight> get() = _navigateToSleepQuality
+    private val _navigateToSleepDetailQuality = MutableLiveData<Long?>()
+    val navigateToSleepDetailQuality: LiveData<Long?> get() = _navigateToSleepDetailQuality
 
     // to manage coroutine (seperti cancel all coroutine saat viewmodel nolonger use dan destroyed)
     private var viewModelJob = Job()
@@ -107,5 +109,13 @@ class SleepTrackerViewModel(
     override fun onCleared() {
         Timber.i("onCleared")
         super.onCleared()
+    }
+
+    fun onClickDetailSleepNight(nightId: Long) {
+        _navigateToSleepDetailQuality.value = nightId
+    }
+
+    fun onSleepDetailNavigated() {
+        _navigateToSleepDetailQuality.value = null
     }
 }

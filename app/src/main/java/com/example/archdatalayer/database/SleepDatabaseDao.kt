@@ -2,7 +2,6 @@ package com.example.archdatalayer.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
@@ -31,4 +30,7 @@ interface SleepDatabaseDao {
 
     @Query("DELETE FROM daily_sleep_quality_table")
     fun clearDb()
+
+    @Query("SELECT * from daily_sleep_quality_table WHERE nightId = :key")
+    fun getNightWithId(key: Long): LiveData<SleepNight>
 }

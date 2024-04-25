@@ -13,8 +13,8 @@ import com.example.archdatalayer.database.SleepNight
  * adapt application data into something dataBinding can display on the screen
  */
 @BindingAdapter("sleepDurationFormatted")
-fun TextView.setSleepDurationFormatted(item: SleepNight) {
-    item.let {
+fun TextView.setSleepDurationFormatted(item: SleepNight?) {
+    item?.let {
         text = convertDurationToFormatted(it.startTimeMilli, it.endTimeMilli, context.resources)
         if (it.sleepQuality <= 2) {
             setTextColor(Color.RED)
@@ -25,15 +25,15 @@ fun TextView.setSleepDurationFormatted(item: SleepNight) {
 }
 
 @BindingAdapter("sleepQualityString")
-fun TextView.setSleepQualityString(item: SleepNight) {
-    item.let {
+fun TextView.setSleepQualityString(item: SleepNight?) {
+    item?.let {
         text = convertNumericQualityToString(it.sleepQuality, context.resources)
     }
 }
 
 @BindingAdapter("sleepImage")
-fun ImageView.setSleepImage(item: SleepNight) {
-    item.let {
+fun ImageView.setSleepImage(item: SleepNight?) {
+    item?.let {
         setImageResource(when(item.sleepQuality) {
             0 -> R.drawable.ic_sleep_0
             1 -> R.drawable.ic_sleep_1
