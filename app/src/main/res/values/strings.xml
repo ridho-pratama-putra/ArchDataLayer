@@ -44,4 +44,5 @@
     <string name="seconds_length">%d seconds on %s</string>
     <string name="close">close</string>
     <string name="fragment_sleep_detail">SleepDetailFragment</string>
+    <string name="sleep_night_list">Sleep Night List</string>
 </resources>

@@ -1,15 +1,14 @@
 package com.example.archdatalayer.sleepTracker
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.archdatalayer.database.SleepNight
 
-class SleepNightDiffCallback: DiffUtil.ItemCallback<SleepNight>() {
-    override fun areItemsTheSame(oldItem: SleepNight, newItem: SleepNight): Boolean {
+class SleepNightDiffCallback: DiffUtil.ItemCallback<DataItem>() {
+    override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
 //        Timber.i("areItemsTheSame ${oldItem.nightId} && ${newItem.nightId}")
-        return oldItem.nightId == newItem.nightId
+        return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: SleepNight, newItem: SleepNight): Boolean {
+    override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
 //        Timber.i("areContentsTheSame ${oldItem.endTimeMilli} && ${newItem.endTimeMilli}")
         return oldItem == newItem
     }
