@@ -1,5 +1,6 @@
 package com.example.archdatalayer.sleepTracker
 
+import android.graphics.Color
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -15,6 +16,11 @@ import com.example.archdatalayer.database.SleepNight
 fun TextView.setSleepDurationFormatted(item: SleepNight) {
     item.let {
         text = convertDurationToFormatted(it.startTimeMilli, it.endTimeMilli, context.resources)
+        if (it.sleepQuality <= 2) {
+            setTextColor(Color.RED)
+        } else { // must be reset set property
+            setTextColor(Color.BLACK)
+        }
     }
 }
 
