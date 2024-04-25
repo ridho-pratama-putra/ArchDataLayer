@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -18,7 +19,7 @@ import timber.log.Timber
 /**
  * responsibility:
  * - control UI
- * - nvaigation
+ * - navigation
  */
 class SleepTrackerFragment : Fragment() {
     override fun onCreateView(
@@ -52,7 +53,9 @@ class SleepTrackerFragment : Fragment() {
             }
         })
 
-        val adapter = SleepNightAdapter()
+        val adapter = SleepNightAdapter(SleepNightClickListener {
+            night -> Toast.makeText(context, "${night}", Toast.LENGTH_LONG).show()
+        })
         binding.sleepList.adapter = adapter
 
         viewModel.nights.observe(viewLifecycleOwner, Observer {
@@ -62,8 +65,8 @@ class SleepTrackerFragment : Fragment() {
             }
         })
 
-        val manager: GridLayoutManager = GridLayoutManager(activity, 3)
-        binding.sleepList.layoutManager = manager
+//        val manager: GridLayoutManager = GridLayoutManager(activity, 3)
+//        binding.sleepList.layoutManager = manager
 
         return binding.root
     }

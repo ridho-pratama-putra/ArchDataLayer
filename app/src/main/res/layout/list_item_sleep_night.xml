@@ -6,12 +6,16 @@
         <variable
             name="sleepNight"
             type="com.example.archdatalayer.database.SleepNight" />
-
+        <variable
+            name="sleepNightClickListener"
+            type="com.example.archdatalayer.sleepTracker.SleepNightClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> sleepNightClickListener.onClickSleepNight(sleepNight)}"
+        >
 
         <ImageView
             android:id="@+id/sleep_quality_icon"
@@ -27,6 +31,30 @@
             app:layout_constraintTop_toTopOf="parent"
             app:sleepImage="@{sleepNight}"
             app:srcCompat="@drawable/ic_sleep_0" />
+
+        <TextView
+            android:id="@+id/sleep_duration_string"
+            android:layout_width="299dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/sleep_duration_string_preview"
+            app:sleepDurationFormatted="@{sleepNight}"
+            app:layout_constraintStart_toEndOf="@+id/sleep_quality_icon"
+            app:layout_constraintTop_toTopOf="@+id/sleep_quality_icon" />
+
+        <TextView
+            android:id="@+id/sleep_quality_string"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/sleep_quality_string_preview"
+            app:sleepQualityString="@{sleepNight}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/sleep_quality_icon"
+            app:layout_constraintTop_toBottomOf="@+id/sleep_duration_string" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

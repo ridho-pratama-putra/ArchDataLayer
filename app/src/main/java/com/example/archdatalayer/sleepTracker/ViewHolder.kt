@@ -1,6 +1,5 @@
 package com.example.archdatalayer.sleepTracker
 
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -18,11 +17,11 @@ import timber.log.Timber
  */
 class ViewHolder private constructor(private val binding: ListItemSleepNightBinding) : RecyclerView.ViewHolder(binding.root) {
      fun bind(
-        item: SleepNight,
-        resources: Resources
-    ) {
+         item: SleepNight,
+         sleepNightClickListener: SleepNightClickListener
+     ) {
          binding.sleepNight = item
-
+         binding.sleepNightClickListener = sleepNightClickListener
          /**
           * memastikan bahwa semua perubahan data pada setiap item di RecyclerView telah diterapkan ke tampilan
           * sebelum item tersebut ditampilkan kepada pengguna.
